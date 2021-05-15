@@ -1,0 +1,32 @@
+@import './variables';
+
+
+
+body{
+    font-family: sans-serif;
+    -webkit-font-smoothing:antialiased;
+    color:$dark;
+    
+}
+.mainSection{
+    background-color: $secondary;
+}
+
+.card{
+    border: 0px;
+}
+.card img{
+    margin-top: 3rem!important;
+}
+.empty-cart{
+    background-color:$secondary}
+    .cart-img{
+        width: 30%;
+    }
+
+.cart-input-text{
+    width: 42vh;
+}
+.card{
+    background-color: $light-grey;
+}
