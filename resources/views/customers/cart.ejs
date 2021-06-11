@@ -1,56 +1,64 @@
 <section class="cart">
-    <div class="container-fluid w-50 mx-auto ">
-        <div class="text-center pt-4">
-            <img src="/img/cart-black.png" alt="">
-            <h2>Order summary</h2>
-        </div>
-        <hr>
-        <div class="menu-list">
-            <div class="d-flex justify-content-between mb-3">
-                <img class="w-25" src="/img/pizza.png" alt="">
-                <div class="col-md-4 mx-3 my-auto w-auto">
-                    <h2>Marinara</h2>
-                    <span>MEDIUM</span>
-                </div>
-                <span class="col-md-4 my-auto w-auto">
-                    1Pcs
-                </span>
-                <span class="col-md-4 my-auto w-auto">Rs 300</span>
+    <% if(session.cart) {%>
+        <div class="container-fluid w-50 mx-auto ">
+            <div class="text-center pt-4">
+                <img src="/img/cart-black.png" alt="">
+                <h2>Order summary</h2>
             </div>
-
-
-        </div>
-        <hr>
-        <div class="container-fluid float-right">
-            <div class="d-flex justify-content-end">
-                <h3>Total Ammount: <span style="color: coral;">Rs 300</span></h3>
-            </div>
-            <div class="d-flex justify-content-end">
-                <form action="">
-                    <input class="cart-input-text p-2" type="text" name="Address" id="" placeholder="Address">
-                    <div>
-                        <button class="btn btn-warning my-2 w-100" type="submit">Submit</button>
+            <hr>
+            <% for( let pizza of Object.values(session.cart.items)) {%>
+                <!--   since 'for of loop' take array to run but we have values i objects so after using this it will count all obj values -->
+                <div class="menu-list">
+                    <div class="d-flex justify-content-between mb-3">
+                        <img class="w-25 h-100" src="/img/<%= pizza.item.image%>" alt="">
+                        <div class="col-md-4 mx-3 my-auto w-auto">
+                            <h2>
+                                <%= pizza.item.name%>
+                            </h2>
+                            <span>
+                                <%= pizza.item.size%>
+                            </span>
+                        </div>
+                        <span class="col-md-4 my-auto w-auto">
+                            <%= pizza.qty%> Pcs
+                        </span>
+                        <span class="col-md-4 my-auto w-auto">Rs <%= pizza.item.price * pizza.qty%></span>
                     </div>
-                    
-                </form>
-            </div>
-            <!-- <div class="text-center">
-                <a class="btn btn-warning" href="">LogIn to order</a>
-            </div> -->
-        </div>
-    </div>
-    <!-- <div class="empty-cart">
-        <div class="container-fuild mx-auto">
-            <h1 class="text-center py-2 pt-5">Cart Empty 🕵🏻‍♂️</h1>
-            <p class="text-center">You Have noting in your cart &<br>
-                To orber food go the the Home page</p>
-            <div class="text-center pt-2">
-                <img class=" cart-img" src="/img/empty-cart.png" alt="">
-            </div>
-            <div class="text-center">
-                <a class="btn btn-warning my-4" href="/">Home Page</a>
-            </div>
-        </div>
-    </div> -->
+                </div>
+                <% }%>
+                    <hr>
+                    <div class="container-fluid float-right">
+                        <div class="d-flex justify-content-end">
+                            <h3>Total Ammount: <span style="color: coral;">Rs <%= session.cart.totalPrice %></span></h3>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <form action="">
+                                <input class="cart-input-text p-2" type="text" name="Address" id=""
+                                    placeholder="Address">
+                                <div>
+                                    <button class="btn btn-warning my-2 w-100" type="submit">Submit</button>
+                                </div>
 
+                            </form>
+                        </div>
+                        <!-- <div class="text-center">
+                <a class="btn btn-warning" href="/login">LogIn to order</a>
+            </div> -->
+                    </div>
+        </div>
+        <% } else {%>
+            <div class="empty-cart">
+                <div class="container-fuild mx-auto">
+                    <h1 class="text-center py-2 pt-5">Cart Empty 🕵🏻‍♂️</h1>
+                    <p class="text-center">You Have noting in your cart &<br>
+                        To orber food go the the Home page</p>
+                    <div class="text-center pt-2">
+                        <img class=" cart-img" src="/img/empty-cart.png" alt="">
+                    </div>
+                    <div class="text-center">
+                        <a class="btn btn-warning my-4" href="/">Home Page</a>
+                    </div>
+                </div>
+            </div>
+            <% }%>
 </section>

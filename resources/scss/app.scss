@@ -1,5 +1,6 @@
 @import './variables';
-
+@import '~noty/src/noty.scss';
+@import '~noty/src/themes/mint.scss';
 
 
 body{
@@ -29,4 +30,12 @@ body{
 }
 .card{
     background-color: $light-grey;
+}
+
+.noty_theme__mint{
+    border-radius: 50px !important;
+    padding-left: 8px !important;
+    text-align: center;
+    font-weight: bolder ;
+    font-family: 'Times New Roman', Times, serif;
 }
