@@ -1,10 +1,16 @@
 require('dotenv').config()       //to use .env file
 const express = require('express')
 const app = express()
+
 app.use(express.json())     //before this the json data will show undifined in terminal
+app.use(express.urlencoded({ extended: false }))    //for urlencoded data
+
 const session = require('express-session')
 const flash = require('express-flash')
 const MongoDbStore = require('connect-mongo');   //session store
+
+//import passport for authentication
+const passport = require('passport')
 
 
 //database connection
@@ -17,6 +23,7 @@ connection.once('open', () => {
 }).catch(err => {
     console.log('Connection Failed...')
 });
+
 
 const ejs = require('ejs')
 const expressLayout = require('express-ejs-layouts')
@@ -39,11 +46,20 @@ app.use(
     }))
 app.use(flash())   //calling flash function here
 
+//Passport config
+const passportInit = require('./app/config/passport')       //strategy for authentication ... since code is big so writing in diffrent file
+passportInit(passport)                         //calling function in the passport.js file
+app.use(passport.initialize())
+app.use(passport.session())
+//***PAssport config should always be below sessions */
+
 //for availing session key on frontend we are creating a global middleware
 app.use((req, res, next) => {
-    res.locals.session = req.session;
+    res.locals.user = req.user;  // for makeing user available on frontend
+    res.locals.session = req.session; // for makeing user available on frontend
     next();
 })
+
 
 // tell express where we have assets
 app.use(express.static('public'))  //without this red color of css was not rendering to webpage
@@ -52,7 +68,6 @@ app.use(express.static('public'))  //without this red color of css was not rende
 app.use(expressLayout)
 app.set('views', path.join(__dirname, '/resources/views'))
 app.set('view engine', 'ejs')
-
 
 require('./routes/web')  //importing module
 initRoutes(app)   //calling function
