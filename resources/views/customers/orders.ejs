@@ -1,0 +1,48 @@
+<section class="orders light-section">
+    <div class="container m-auto p-4">
+        <h1>All orders</h1>
+        <%if(messages.success) {%>
+            <div id="success-alert" class="text-center">
+                <p>
+                    <%= messages.success%>
+                </p>
+            </div>
+            <%}%>
+                <table class="table">
+                    <thead class="thead-dark table-dark">
+                        <tr>
+                            <th scope="col">Orders</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Address</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(orders.length){%>
+                            <!-- that means if array of orders will have some length than we will proceed -->
+                            <!--getting this variable(order) from ordercontroller-->
+                            <% orders.forEach((orders)=>{%>
+                                <tr>
+                                    <td><a class="link text-warning" href="/">
+                                            <%=orders._id%>
+                                        </a></td>
+                                    <td>
+                                        <%=moment(orders.createdAt).format('hh:mm A')%>
+                                    </td>
+                                    <td>
+                                        <%=orders.mobile%>
+                                    </td>
+                                    <td>
+                                        <%=orders.address%>
+                                    </td>
+                                </tr>
+                                <% })%>
+
+                                    <% } else {%>
+                                        <p>Order now</p>
+                                        <% }%>
+                    </tbody>
+                </table>
+    </div>
+</section>

@@ -31,19 +31,26 @@
                         <div class="d-flex justify-content-end">
                             <h3>Total Ammount: <span style="color: coral;">Rs <%= session.cart.totalPrice %></span></h3>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <form action="">
-                                <input class="cart-input-text p-2" type="text" name="Address" id=""
-                                    placeholder="Address">
-                                <div>
-                                    <button class="btn btn-warning my-2 w-100" type="submit">Submit</button>
-                                </div>
 
-                            </form>
-                        </div>
-                        <!-- <div class="text-center">
-                <a class="btn btn-warning" href="/login">LogIn to order</a>
-            </div> -->
+                        <% if (user) {%>
+                            <div class="d-flex justify-content-end">
+                                <form action="/orders" method="POST">
+                                    <input name="address" class="cart-input-text p-2 mb-2" type="text" name="Address"
+                                        id="" placeholder="Address">
+                                    <br>
+                                    <input name="mobile" class="cart-input-text p-2" type="text" name="Address" id=""
+                                        placeholder="Mobile no.">
+                                    <div>
+                                        <button class="btn btn-warning my-2 w-100" type="submit">Order Now</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <%} else {%>
+                                <div class="text-center">
+                                    <a class="btn btn-warning" href="/login">LogIn to order</a>
+                                </div>
+                                <%}%>
                     </div>
         </div>
         <% } else {%>

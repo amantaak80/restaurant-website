@@ -5,6 +5,14 @@ const { response } = require('express')
 const passport = require('passport')
 
 function authController() {
+
+    function _getRedirectUrl(user) {     //function for redirecting user to its specific Order path
+        if (user.role == 'admin') {
+            return '/admin/orders'
+        }
+        return '/customer/orders'
+    }
+
     return {
         login: (req, res) => {
             res.render('auth/login.ejs')
@@ -26,12 +34,14 @@ function authController() {
                         req.flash('error', info.message)
                         return next(err)
                     }
-
-                    return res.redirect('/')    //if true
+                    //now if user is a Customer then redirect them to placed orders and if user is Admin redirect them to recieved orders
+                    return res.redirect(_getRedirectUrl(req.user))    //if true
                 })
             })(req, res, next)       //we are calling function, becoz this passport.authenticate return us a functio  which we have to call at end
 
         },
+
+
 
         register(req, res) {     //for get req of Register
             res.render('auth/register.ejs')

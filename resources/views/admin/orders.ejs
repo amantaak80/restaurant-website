@@ -1,0 +1,27 @@
+<section class="orders light-section">
+    <div class="container m-auto p-4">
+        <h1>All orders</h1>
+        <!-- <%if(messages.success) {%>
+            <div id="success-alert" class="text-center">
+                <p>
+                    <%= messages.success%>
+                </p>
+            </div>
+            <%}%> -->
+        <table class="table">
+            <thead class="thead-dark table-dark">
+                <tr>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Placed At</th>
+
+
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+            </tbody>
+        </table>
+    </div>
+</section>
